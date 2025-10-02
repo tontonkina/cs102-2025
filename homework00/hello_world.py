@@ -1,2 +1,4 @@
+"""Module"""
 def text():
-    return message
+    """Func"""
+    return "message"
