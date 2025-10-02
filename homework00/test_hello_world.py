@@ -1,4 +1,5 @@
 """Module"""
+
 import unittest
 
 import hello_world
@@ -6,6 +7,7 @@ import hello_world
 
 class HelloTestCase(unittest.TestCase):
     """Class"""
+
     def test_hello(self):
         """Func"""
         m = "message"
