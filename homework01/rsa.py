@@ -24,6 +24,7 @@ def is_prime(n: int) -> bool:
     return True
     pass
 
+
 def gcd(a: int, b: int) -> int:
     """
     >>> gcd(12, 15)
@@ -35,6 +36,7 @@ def gcd(a: int, b: int) -> int:
         a, b = b, a % b
     return a
     pass
+
 
 def multiplicative_inverse(e: int, phi: int) -> int:
     """
@@ -57,6 +59,7 @@ def multiplicative_inverse(e: int, phi: int) -> int:
 
     return x % phi
     pass
+
 
 def generate_keypair(p: int, q: int) -> Tuple[Tuple[int, int], Tuple[int, int]]:
     if not (is_prime(p) and is_prime(q)):
@@ -82,6 +85,7 @@ def generate_keypair(p: int, q: int) -> Tuple[Tuple[int, int], Tuple[int, int]]:
     # Return public and private keypair
     # Public key is (e, n) and private key is (d, n)
     return ((e, n), (d, n))
+
 
 def encrypt(pk: Tuple[int, int], plaintext: str) -> List[int]:
     # Unpack the key into it's components
