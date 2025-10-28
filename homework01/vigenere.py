@@ -44,7 +44,7 @@ def decrypt_vigenere(ciphertext: str, keyword: str) -> str:
         if char.isalpha():
             key_char = keyword[i % key_length]
             shift = ord(key_char) - ord("A")
-            
+
             if char.isupper():
                 plaintext += chr((ord(char) - ord("A") - shift) % 26 + ord("A"))
             else:
