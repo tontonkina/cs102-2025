@@ -1,5 +1,5 @@
 import random
-from typing import Tuple, List
+from typing import List, Tuple
 
 
 def is_prime(n: int) -> bool:
