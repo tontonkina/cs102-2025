@@ -18,7 +18,7 @@ def is_prime(n: int) -> bool:
         return True
     if n % 2 == 0:
         return False
-    for i in range(3, int(n ** 0.5) + 1, 2):
+    for i in range(3, int(n**0.5) + 1, 2):
         if n % i == 0:
             return False
     return True
@@ -60,13 +60,13 @@ def multiplicative_inverse(e: int, phi: int) -> int:
 
 def generate_keypair(p: int, q: int) -> Tuple[Tuple[int, int], Tuple[int, int]]:
     if not (is_prime(p) and is_prime(q)):
-        raise ValueError('Both numbers must be prime.')
+        raise ValueError("Both numbers must be prime.")
     elif p == q:
-        raise ValueError('p and q cannot be equal')
+        raise ValueError("p and q cannot be equal")
 
     n = p * q
 
-    phi = (p-1) * (q-1) 
+    phi = (p - 1) * (q - 1)
 
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)
@@ -97,7 +97,7 @@ def decrypt(pk: Tuple[int, int], ciphertext: List[int]) -> str:
     # Unpack the key into its components
     key, n = pk
     # Generate the plaintext based on the ciphertext and key using a^b mod m
-    plain = [chr((char ** key) % n) for char in ciphertext]
+    plain = [chr((char**key) % n) for char in ciphertext]
     # Return the array of bytes as a string
     return "".join(plain)
 
