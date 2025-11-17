@@ -175,10 +175,25 @@ def solve(sudoku_grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str
 
 def check_solution(solutionn: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
-    # TODO: Add doctests with bad puzzles
-    pass
+    for i in range(9):
+        row = get_row(solutionn, (i, 0))
+        if set(row) != set('123456789'):
+            return False
 
+    for j in range(9):
+        col = get_col(solutionn, (0, j))
+        if set(col) != set('123456789'):
+            return False
 
+    for i in range(0, 9, 3):
+        for j in range(0, 9, 3):
+            block = get_block(solutionn, (i, j))
+            if set(block) != set('123456789'):
+                return False
+    return True
+
+import random
+import typing as tp
 def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     """Генерация судоку заполненного на N элементов
     >>> grid = generate_sudoku(40)
@@ -200,7 +215,34 @@ def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     >>> check_solution(solution)
     True
     """
-    pass
+    n = max(0, min(n, 81))
+
+    sudoku_grid = [['.' for _ in range(9)] for _ in range(9)]
+
+    for block in range(0, 9, 3):
+        fill_block(sudoku_grid, block, block)
+
+    solve(sudoku_grid)
+
+    all_positions = [(i, j) for i in range(9) for j in range(9)]
+    random.shuffle(all_positions)
+
+    for i in range(81 - n):
+        row, col = all_positions[i]
+        sudoku_grid[row][col] = '.'
+
+    return sudoku_grid
+
+
+def fill_block(sudoku_grid: tp.List[tp.List[str]], start_row: int, start_col: int) -> None:
+    numbers = list(range(1, 10))
+    random.shuffle(numbers)
+
+    idx = 0
+    for i in range(3):
+        for j in range(3):
+            sudoku_grid[start_row + i][start_col + j] = str(numbers[idx])
+            idx += 1
 
 
 if __name__ == "__main__":
