@@ -93,7 +93,9 @@ def get_block(sudoku_grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp
     return result
 
 
-def find_empty_positions(sudoku_grid: tp.List[tp.List[str]],) -> tp.Optional[tp.Tuple[int, int]]:
+def find_empty_positions(
+    sudoku_grid: tp.List[tp.List[str]],
+) -> tp.Optional[tp.Tuple[int, int]]:
     """Найти первую свободную позицию в пазле
     >>> find_empty_positions([['1', '2', '.'], ['4', '5', '6'], ['7', '8', '9']])
     (0, 2)
