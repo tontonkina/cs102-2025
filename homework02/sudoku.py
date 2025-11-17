@@ -48,7 +48,9 @@ def group(values: tp.List[T], n: int) -> tp.List[tp.List[T]]:
     return [values[i * n : (i + 1) * n] for i in range(n)]
 
 
-def get_row(sudoku_grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
+def get_row(
+    sudoku_grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]
+) -> tp.List[str]:
     """Возвращает все значения для номера строки, указанной в pos
     >>> get_row([['1', '2', '.'], ['4', '5', '6'], ['7', '8', '9']], (0, 0))
     ['1', '2', '.']
@@ -61,7 +63,9 @@ def get_row(sudoku_grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.L
     return sudoku_grid[row]
 
 
-def get_col(sudoku_grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
+def get_col(
+    sudoku_grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]
+) -> tp.List[str]:
     """Возвращает все значения для номера столбца, указанного в pos
     >>> get_col([['1', '2', '.'], ['4', '5', '6'], ['7', '8', '9']], (0, 0))
     ['1', '4', '7']
@@ -74,7 +78,9 @@ def get_col(sudoku_grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.L
     return [sudoku_grid[i][col] for i in range(len(sudoku_grid))]
 
 
-def get_block(sudoku_grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]) -> tp.List[str]:
+def get_block(
+    sudoku_grid: tp.List[tp.List[str]], pos: tp.Tuple[int, int]
+) -> tp.List[str]:
     """Возвращает все значения из квадрата, в который попадает позиция pos
     >>> grid = read_sudoku('puzzle1.txt')
     >>> get_block(grid, (0, 1))
@@ -109,7 +115,7 @@ def find_empty_positions(
     """
     for i in range(len(sudoku_grid)):
         for j in range(len(sudoku_grid[i])):
-            if sudoku_grid[i][j] == '.':
+            if sudoku_grid[i][j] == ".":
                 return i, j
     return None
 
@@ -133,9 +139,10 @@ def find_possible_values(
     block_values = set(get_block(sudoku_grid, pos))
 
     used_values = row_values | col_values | block_values
-    used_values.discard('.')
+    used_values.discard(".")
 
     return all_values - used_values
+
 
 def solve(sudoku_grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str]]]:
     """Решение пазла, заданного в grid"""
@@ -168,7 +175,7 @@ def solve(sudoku_grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str
         if solutionn is not None:
             return solutionn
 
-        sudoku_grid[row][col] = '.'
+        sudoku_grid[row][col] = "."
 
     return None
 
@@ -177,23 +184,26 @@ def check_solution(solutionn: tp.List[tp.List[str]]) -> bool:
     """Если решение solution верно, то вернуть True, в противном случае False"""
     for i in range(9):
         row = get_row(solutionn, (i, 0))
-        if set(row) != set('123456789'):
+        if set(row) != set("123456789"):
             return False
 
     for j in range(9):
         col = get_col(solutionn, (0, j))
-        if set(col) != set('123456789'):
+        if set(col) != set("123456789"):
             return False
 
     for i in range(0, 9, 3):
         for j in range(0, 9, 3):
             block = get_block(solutionn, (i, j))
-            if set(block) != set('123456789'):
+            if set(block) != set("123456789"):
                 return False
     return True
 
+
 import random
 import typing as tp
+
+
 def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     """Генерация судоку заполненного на N элементов
     >>> grid = generate_sudoku(40)
@@ -217,7 +227,7 @@ def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
     """
     n = max(0, min(n, 81))
 
-    sudoku_grid = [['.' for _ in range(9)] for _ in range(9)]
+    sudoku_grid = [["." for _ in range(9)] for _ in range(9)]
 
     for block in range(0, 9, 3):
         fill_block(sudoku_grid, block, block)
@@ -229,12 +239,14 @@ def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
 
     for i in range(81 - n):
         row, col = all_positions[i]
-        sudoku_grid[row][col] = '.'
+        sudoku_grid[row][col] = "."
 
     return sudoku_grid
 
 
-def fill_block(sudoku_grid: tp.List[tp.List[str]], start_row: int, start_col: int) -> None:
+def fill_block(
+    sudoku_grid: tp.List[tp.List[str]], start_row: int, start_col: int
+) -> None:
     numbers = list(range(1, 10))
     random.shuffle(numbers)
 
