@@ -1,4 +1,7 @@
+"""Модуль для решения и генерации судоку."""
+
 import pathlib
+import random
 import typing as tp
 
 T = tp.TypeVar("T")
@@ -59,7 +62,7 @@ def get_row(
     >>> get_row([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (2, 0))
     ['.', '8', '9']
     """
-    row, col = pos
+    row, _ = pos
     return sudoku_grid[row]
 
 
@@ -74,7 +77,7 @@ def get_col(
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-    row, col = pos
+    _, col = pos
     return [sudoku_grid[i][col] for i in range(len(sudoku_grid))]
 
 
@@ -113,9 +116,9 @@ def find_empty_positions(
     >>> find_empty_positions([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']])
     (2, 0)
     """
-    for i in range(len(sudoku_grid)):
-        for j in range(len(sudoku_grid[i])):
-            if sudoku_grid[i][j] == ".":
+    for i, line in enumerate(sudoku_grid):
+        for j, cell in enumerate(line):
+            if cell == ".":
                 return i, j
     return None
 
@@ -154,7 +157,15 @@ def solve(sudoku_grid: tp.List[tp.List[str]]) -> tp.Optional[tp.List[tp.List[str
             3.2. Продолжить решать оставшуюся часть пазла
     >>> grid = read_sudoku('puzzle1.txt')
     >>> solve(grid)
-    [['5', '3', '4', '6', '7', '8', '9', '1', '2'], ['6', '7', '2', '1', '9', '5', '3', '4', '8'], ['1', '9', '8', '3', '4', '2', '5', '6', '7'], ['8', '5', '9', '7', '6', '1', '4', '2', '3'], ['4', '2', '6', '8', '5', '3', '7', '9', '1'], ['7', '1', '3', '9', '2', '4', '8', '5', '6'], ['9', '6', '1', '5', '3', '7', '2', '8', '4'], ['2', '8', '7', '4', '1', '9', '6', '3', '5'], ['3', '4', '5', '2', '8', '6', '1', '7', '9']]
+    [['5', '3', '4', '6', '7', '8', '9', '1', '2'], 
+    ['6', '7', '2', '1', '9', '5', '3', '4', '8'], 
+    ['1', '9', '8', '3', '4', '2', '5', '6', '7'], 
+    ['8', '5', '9', '7', '6', '1', '4', '2', '3'], 
+    ['4', '2', '6', '8', '5', '3', '7', '9', '1'], 
+    ['7', '1', '3', '9', '2', '4', '8', '5', '6'], 
+    ['9', '6', '1', '5', '3', '7', '2', '8', '4'], 
+    ['2', '8', '7', '4', '1', '9', '6', '3', '5'], 
+    ['3', '4', '5', '2', '8', '6', '1', '7', '9']]
     """
     empty_pos = find_empty_positions(sudoku_grid)
 
@@ -198,10 +209,6 @@ def check_solution(solutionn: tp.List[tp.List[str]]) -> bool:
             if set(block) != set("123456789"):
                 return False
     return True
-
-
-import random
-import typing as tp
 
 
 def generate_sudoku(n: int) -> tp.List[tp.List[str]]:
