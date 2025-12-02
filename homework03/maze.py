@@ -82,9 +82,7 @@ def bin_tree_maze(rows: int = 15, cols: int = 15, random_exit: bool = True) -> L
     if random_exit:
         x_in, x_out = randint(0, rows - 1), randint(0, rows - 1)
         y_in = randint(0, cols - 1) if x_in in (0, rows - 1) else choice((0, cols - 1))
-        y_out = (
-            randint(0, cols - 1) if x_out in (0, rows - 1) else choice((0, cols - 1))
-        )
+        y_out = (randint(0, cols - 1) if x_out in (0, rows - 1) else choice((0, cols - 1)))
     else:
         x_in, y_in = 0, cols - 2
         x_out, y_out = rows - 1, 1
