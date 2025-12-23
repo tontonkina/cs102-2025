@@ -6,7 +6,7 @@ import random
 from pathlib import Path
 
 import pygame
-from pygame.locals import KEYDOWN, MOUSEBUTTONDOWN, QUIT, K_l, K_p, K_q, K_r, K_s
+from pygame.locals import *
 
 from life import GameOfLife
 from ui import UI
@@ -15,20 +15,18 @@ from ui import UI
 class GUI(UI):
     """Графический интерфейс для симуляции игры "Жизнь"."""
 
-    def __init__(
-        self, life_game: GameOfLife, cell_size: int = 10, speed: int = 10
-    ) -> None:
+    def __init__(self, life: GameOfLife, cell_size: int = 10, speed: int = 10) -> None:
         """Инициализация графического интерфейса."""
-        super().__init__(life_game)
+        super().__init__(life)
         self.cell_size = cell_size
 
-        self.width = self.cell_size * life_game.cols
-        self.height = self.cell_size * life_game.rows
+        self.width = self.cell_size * life.cols
+        self.height = self.cell_size * life.rows
         self.screen_size = self.width, self.height
         self.screen = pygame.display.set_mode(self.screen_size)
 
-        self.grid_rows = life_game.rows
-        self.grid_cols = life_game.cols
+        self.grid_rows = life.rows
+        self.grid_cols = life.cols
 
         self.speed = speed
         self.paused = False
@@ -52,12 +50,11 @@ class GUI(UI):
                 x = col * self.cell_size
                 y = row * self.cell_size
                 if self.life.curr_generation[row][col] == 1:
-                    if isinstance(color, tuple):
-                        pygame.draw.rect(
-                            self.screen,
-                            pygame.Color(color),
-                            (x, y, self.cell_size, self.cell_size),
-                        )
+                    pygame.draw.rect(
+                        self.screen,
+                        pygame.Color(color),
+                        (x, y, self.cell_size, self.cell_size),
+                    )
                 else:
                     pygame.draw.rect(
                         self.screen,
@@ -114,7 +111,7 @@ class GUI(UI):
 
     def run(self) -> None:
         """Запуск главного цикла графического интерфейса"""
-        pygame.init()
+        pygame.init()  # pylint: disable=no-member
         clock = pygame.time.Clock()
         pygame.display.set_caption("Game of Life")
         self.screen.fill(pygame.Color("white"))
