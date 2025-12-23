@@ -10,9 +10,7 @@ Grid = tp.List[Cells]
 
 
 class GameOfLife:
-    def __init__(
-        self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10
-    ) -> None:
+    def __init__(self, width: int = 640, height: int = 480, cell_size: int = 10, speed: int = 10) -> None:
         self.width = width
         self.height = height
         self.cell_size = cell_size
@@ -32,13 +30,9 @@ class GameOfLife:
     def draw_lines(self) -> None:
         """Отрисовать сетку"""
         for x in range(0, self.width, self.cell_size):
-            pygame.draw.line(
-                self.screen, pygame.Color("black"), (x, 0), (x, self.height)
-            )
+            pygame.draw.line(self.screen, pygame.Color("black"), (x, 0), (x, self.height))
         for y in range(0, self.height, self.cell_size):
-            pygame.draw.line(
-                self.screen, pygame.Color("black"), (0, y), (self.width, y)
-            )
+            pygame.draw.line(self.screen, pygame.Color("black"), (0, y), (self.width, y))
 
     def run(self) -> None:
         """Запустить игру"""
@@ -83,14 +77,9 @@ class GameOfLife:
         """
 
         if randomize:
-            return [
-                [random.randint(0, 1) for _ in range(self.cell_width)]
-                for _ in range(self.cell_height)
-            ]
+            return [[random.randint(0, 1) for _ in range(self.cell_width)] for _ in range(self.cell_height)]
         else:
-            return [
-                [0 for _ in range(self.cell_width)] for _ in range(self.cell_height)
-            ]
+            return [[0 for _ in range(self.cell_width)] for _ in range(self.cell_height)]
 
     def draw_grid(self) -> None:
         """

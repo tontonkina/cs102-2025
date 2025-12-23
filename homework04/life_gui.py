@@ -34,13 +34,9 @@ class GUI(UI):
     def draw_lines(self) -> None:
         """Отрисовка линий сетки между ячейками."""
         for x in range(0, self.width, self.cell_size):
-            pygame.draw.line(
-                self.screen, pygame.Color("black"), (x, 0), (x, self.height)
-            )
+            pygame.draw.line(self.screen, pygame.Color("black"), (x, 0), (x, self.height))
         for y in range(0, self.height, self.cell_size):
-            pygame.draw.line(
-                self.screen, pygame.Color("black"), (0, y), (self.width, y)
-            )
+            pygame.draw.line(self.screen, pygame.Color("black"), (0, y), (self.width, y))
 
     def draw_grid(self, color="purple") -> None:
         """Отрисовка сетки с закрашенными живыми ячейками."""
@@ -103,9 +99,7 @@ class GUI(UI):
             row = y // self.cell_size
             col = x // self.cell_size
             if 0 <= row < self.life.rows and 0 <= col < self.life.cols:
-                self.life.curr_generation[row][col] = (
-                    1 - self.life.curr_generation[row][col]
-                )
+                self.life.curr_generation[row][col] = 1 - self.life.curr_generation[row][col]
                 print(f"Клетка [{row},{col}] изменена")
 
     def run(self) -> None:
